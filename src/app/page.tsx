@@ -263,6 +263,7 @@ export default function Home() {
         <p className="text-[var(--color-muted)] text-lg">
           Cook with what&apos;s in season. Recipes based on what you actually have.
         </p>
+        <a href="/nl" className="text-sm text-[var(--color-accent)] hover:underline mt-2 inline-block">🇳🇱 Nederlandse versie</a>
       </header>
 
       {/* Region & Month selector */}
