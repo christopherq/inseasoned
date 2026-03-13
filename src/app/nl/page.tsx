@@ -3,6 +3,7 @@
 import { useState, useMemo } from "react";
 import { PANTRY_ITEMS_NL, PANTRY_CATEGORIES_NL } from "@/data/pantry-nl";
 import { getSeasonalIngredientsNL } from "@/data/seasonal-nl";
+import { estimateRecipeCost } from "@/data/prices-nl";
 
 type Recipe = {
   title: string;
@@ -13,6 +14,7 @@ type Recipe = {
   steps: string[];
   matchedSeasonal: string[];
   matchedPantry: string[];
+  estimatedCost?: number;
 };
 
 function generateRecipes(seasonal: string[], pantry: string[]): Recipe[] {
@@ -186,6 +188,11 @@ function generateRecipes(seasonal: string[], pantry: string[]): Recipe[] {
     });
   }
 
+  // Calculate estimated costs
+  for (const r of recipes) {
+    r.estimatedCost = estimateRecipeCost(r.ingredients);
+  }
+
   return recipes;
 }
 
@@ -331,6 +338,7 @@ export default function NLPage() {
                     <div className="flex gap-3 text-xs text-[var(--color-muted)]">
                       <span>⏱ {recipe.time}</span>
                       <span>👤 {recipe.servings} personen</span>
+                      {recipe.estimatedCost && <span>💰 ~€{recipe.estimatedCost.toFixed(2)}</span>}
                     </div>
                   </div>
                   <svg className={`w-5 h-5 text-[var(--color-muted)] transition-transform flex-shrink-0 mt-1 ${expandedRecipe === i ? "rotate-180" : ""}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
