@@ -4,6 +4,7 @@ import { useState, useMemo } from "react";
 import { PANTRY_ITEMS_NL, PANTRY_CATEGORIES_NL } from "@/data/pantry-nl";
 import { getSeasonalIngredientsNL } from "@/data/seasonal-nl";
 import { estimateRecipeCost } from "@/data/prices-nl";
+import { getRecipeImage } from "@/data/recipe-images";
 
 type Recipe = {
   title: string;
@@ -330,6 +331,16 @@ export default function NLPage() {
         <div className="space-y-4">
           {recipes.map((recipe, i) => (
             <div key={i} className="bg-white border border-[var(--color-border)] rounded-xl overflow-hidden hover:shadow-md transition-shadow">
+              {getRecipeImage(recipe.title) && (
+                <div className="w-full h-48 overflow-hidden">
+                  <img
+                    src={getRecipeImage(recipe.title)!}
+                    alt={recipe.title}
+                    className="w-full h-full object-cover"
+                    loading="lazy"
+                  />
+                </div>
+              )}
               <button onClick={() => setExpandedRecipe(expandedRecipe === i ? null : i)} className="w-full text-left p-5">
                 <div className="flex items-start justify-between">
                   <div>

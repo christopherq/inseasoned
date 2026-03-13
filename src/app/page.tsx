@@ -3,6 +3,7 @@
 import { useState, useMemo, useEffect } from "react";
 import { PANTRY_ITEMS, PANTRY_CATEGORIES } from "@/data/pantry";
 import { getSeasonalIngredients, Region } from "@/data/seasonal";
+import { getRecipeImage } from "@/data/recipe-images";
 
 type Recipe = {
   title: string;
@@ -371,6 +372,16 @@ export default function Home() {
               key={i}
               className="bg-white border border-[var(--color-border)] rounded-xl overflow-hidden hover:shadow-md transition-shadow"
             >
+              {getRecipeImage(recipe.title) && (
+                <div className="w-full h-48 overflow-hidden">
+                  <img
+                    src={getRecipeImage(recipe.title)!}
+                    alt={recipe.title}
+                    className="w-full h-full object-cover"
+                    loading="lazy"
+                  />
+                </div>
+              )}
               <button
                 onClick={() => setExpandedRecipe(expandedRecipe === i ? null : i)}
                 className="w-full text-left p-5"
