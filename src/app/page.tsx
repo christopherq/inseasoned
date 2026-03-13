@@ -3,7 +3,6 @@
 import { useState, useMemo } from "react";
 import { PANTRY_ITEMS, PANTRY_CATEGORIES } from "@/data/pantry";
 import { getSeasonalIngredients, Region } from "@/data/seasonal";
-import { getRecipeImage } from "@/data/recipe-images";
 
 type Diet = "omnivore" | "vegetarian" | "vegan" | "pescatarian" | "flexitarian";
 
@@ -537,11 +536,6 @@ export default function Home() {
         <div className="space-y-4">
           {recipes.map((recipe, i) => (
             <div key={i} className="bg-white border border-[var(--color-border)] rounded-xl overflow-hidden hover:shadow-md transition-shadow">
-              {getRecipeImage(recipe.title) && (
-                <div className="w-full h-48 overflow-hidden">
-                  <img src={getRecipeImage(recipe.title)!} alt={recipe.title} className="w-full h-full object-cover" loading="lazy" />
-                </div>
-              )}
               <button onClick={() => setExpandedRecipe(expandedRecipe === i ? null : i)} className="w-full text-left p-5">
                 <div className="flex items-start justify-between">
                   <div>
